@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+		<title>AREA PERSONALE</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="static/css/main.css" />
+	</head>
+	<body>
+	        <section id="main">
+
+					<!-- Header -->
+				<header id="header">
+					<div>SILPH - <span>area personale</span></div>
+				</header>
+				<section id="banner">
+					<div class="inner">
+						<div class="column">
+							<h3>OPZIONI:</h3>
+							<ul class="actions">
+								<li><button class="open-button" onclick="openForm()">Nuovo Fotografo</button>
+									<div class="form-popup" id="myForm">
+                                    <form action="#" method="post" class="form-container">
+                                    <h1>Nuovo Fotografo</h1>
+
+                                    <label for="nome"><b>Nome</b></label>
+                                    <input type="text" placeholder="Nome Fotografo" style = "color: #000000;" name="nome" required>
+
+                                    <label for="cognome"><b>Cognome</b></label>
+                                    <input type="text" placeholder="Cognome Fotografo" style = "color: #000000;" name="cognome" required>
+ 
+                                    <button type="submit" class="btn">Salva</button>
+                                    <button type="button" class="btn cancel" onclick="closeForm()">Chiudi</button>
+                                    </form>
+                                    </div></li><br><br>
+								<li><button class="open-button" onclick="openForm2()">Nuovo Album</button>
+									<div class="form-popup" id="myForm2">
+                                    <form action="#" method="post" class="form-container" enctype=”multipart/form-data”>
+                                    <h1>Nuovo Album</h1>
+                                    
+                                    <label for="nomeAlbum"><b>Nome Album</b></label>
+                                    <input type="text" placeholder="Nome Album" style = "color: #000000;" name="nomeAlbum" required>
+                                    <label for="file"><b>Album da Caricare</b></label>
+                                    <input type="file" name="file" id="file" class="file" multiple directory="" webkitdirectory="" mozdirectory="" required><br><br>
+                                    <button type="submit" class="btn">Carica</button>
+                                    <button type="button" class="btn cancel" onclick="closeForm2()">Chiudi</button>
+                                    </form>
+                                    </div></li><br><br>
+								<li><button class="open-button" onclick="openForm3()">Carica Singola Foto</button>
+									<div class="form-popup" id="myForm3">
+                                    <form action="#" method="post" class="form-container" enctype=”multipart/form-data”>
+                                    <h1>Carica Foto</h1>
+                                    
+                                    <label for="nomeFoto"><b>Nome Foto</b></label>
+                                    <input type="text" placeholder="Nome Foto" style = "color: #000000;" name="nomeFoto" required>
+                                    <label for="file2"><b>Foto da Caricare</b></label>
+                                    <input type="file" name="file2" id="file2" class="file" required><br><br>
+                                    <button type="submit" class="btn">Carica</button>
+                                    <button type="button" class="btn cancel" onclick="closeForm3()">Chiudi</button>
+                                    </form>
+                                    </div></li><br><br>
+								<li><button class="open-button" onclick="openForm4()">Cerca</button>
+									<div class="form-popup" id="myForm4">
+                                    <form action="#" method="post" class="form-container">
+                                    <h1>Ricerche</h1>
+
+                                    <label for="ricerche"><b>Seleziona il tipo di ricerca</b></label>
+                                    <select name="ricerche" id="ricerche" style = "color: #000000;" required>
+                                    	<option value="Fotografo">Cerca Fotografo</option>
+                                    	<option value="Foto">Cerca Foto</option>
+                                    	<option value="Album">Cerca Album</option>
+                                    </select><br>
+
+                                    <label for="ricerca"><b>Cerca</b></label>
+                                    <input type="text" placeholder="Nome fotografo,foto o album" style = "color: #000000;" name="ricerca" required>
+ 
+                                    <button type="submit" class="btn">Cerca</button>
+                                    <button type="button" class="btn cancel" onclick="closeForm4()">Chiudi</button>
+                                    </form>
+                                    </div></li><br><br><br><br>
+								<li><a href="index.html" class="button alt scrolly big">LogOut</a></li><br>
+							</ul>
+						</div>
+						<div>
+					         <label style="position:absolute;bottom:-95px;left:-635px;color: black;font"><b><font face="castellar">Lista Richieste</font></b></label>
+						     <a href="listaRichieste.html"><img src="static/images/sms-icon.png" alt="" class="message" style="position:absolute;bottom:-150px;left:-630px"/></a>
+						</div>
+                    </div>
+		</section>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+  closeForm2();
+  closeForm3();
+  closeForm4();
+}
+
+function openForm2() {
+  document.getElementById("myForm2").style.display = "block";
+  closeForm();
+  closeForm3();
+  closeForm4();
+}
+
+function openForm3() {
+  document.getElementById("myForm3").style.display = "block";
+  closeForm();
+  closeForm2();
+  closeForm4();
+}
+
+function openForm4() {
+  document.getElementById("myForm4").style.display = "block";
+  closeForm();
+  closeForm2();
+  closeForm3();
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+function closeForm2() {
+  document.getElementById("myForm2").style.display = "none";
+}
+
+function closeForm3() {
+  document.getElementById("myForm3").style.display = "none";
+}
+
+function closeForm4() {
+  document.getElementById("myForm4").style.display = "none";
+}
+</script>
+
+				</section>	
+			</section>
+	</body>
+</html>
