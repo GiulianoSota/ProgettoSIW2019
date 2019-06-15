@@ -52,10 +52,12 @@ public class FotografoController {
 			if(id!=null) {
 				model.addAttribute("fotografo", this.fotografoService.FotografoPerId(id));
 				return "fotografo.html";
-			}else {
+			} 
+			
+			else {
 				model.addAttribute("fotografi", this.fotografoService.tutti());
 				return "fotografi.html";
 			}
 		}
-	}
 }
+

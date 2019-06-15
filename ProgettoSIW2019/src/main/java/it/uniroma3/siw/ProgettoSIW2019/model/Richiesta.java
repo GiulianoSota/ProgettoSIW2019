@@ -6,8 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.OneToMany;
-import org.springframework.data.annotation.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Id;;
 
 @Entity
 public class Richiesta {
@@ -22,16 +22,16 @@ public class Richiesta {
 	@Column(nullable = false)
 	private String cognomeCliente;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String emailCliente;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String telefonoCliente;
 
 	@Column(nullable = false)
 	private String descrizione;
 
-	@OneToMany
+	@ManyToMany
 	private Map<Long, Fotografia> fotografieScelte;
 
 	public Richiesta() {

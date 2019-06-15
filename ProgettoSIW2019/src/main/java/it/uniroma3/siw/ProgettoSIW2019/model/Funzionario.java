@@ -4,8 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 @Entity
 public class Funzionario {
@@ -14,32 +13,31 @@ public class Funzionario {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String email;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String username;
 
 	@Column(nullable = false)
 	private String password;
 
-	@ManyToOne
-	private Silph silph;
-
 	public Funzionario() {
 
 	}
 
-	public Funzionario(String email, String username, String password, Silph silph) {
+	public Funzionario(String email, String username, String password) {
 		
 		this.email = email;
 		this.username = username;
 		this.password = password;
-		this.silph = silph;
 
 	}
 
-	public boolean checkPassword() {return false;} //TODO
+	public boolean checkPassword(String passwordToCheck) {
+		return this.password.equals(passwordToCheck); 
+	
+	}
 
 	public String getEmail() {
 		return email;
@@ -67,9 +65,5 @@ public class Funzionario {
 
 	public Long getId() {
 		return id;
-	}
-
-	public Silph getSilph() {
-		return silph;
 	}
 }
