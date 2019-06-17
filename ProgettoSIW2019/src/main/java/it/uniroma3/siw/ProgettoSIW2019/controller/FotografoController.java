@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import it.uniroma3.siw.ProgettoSIW2019.model.Fotografo;
-import it.uniroma3.siw.ProgettoSIW2019.services.FotografoService;
-import it.uniroma3.siw.ProgettoSIW2019.services.FotografoValidator;
+import it.uniroma3.siw.ProgettoSIW2019.service.FotografoService;
+import it.uniroma3.siw.ProgettoSIW2019.validator.FotografoValidator;
 
 @Controller
 public class FotografoController {
@@ -40,7 +40,7 @@ public class FotografoController {
 		}
 		if(!bindingResult.hasErrors()) {
 			this.fotografoService.inserisci(fotografo);
-			model.addAttribute("fotografi", this.fotografoService.tutti());
+			model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());
 			return "fotografi.html";
 		}else {
 			return "fotografoForm.html";
@@ -50,12 +50,12 @@ public class FotografoController {
 		@RequestMapping(value = "/fotografo/{id}", method = RequestMethod.GET)
 		public String getFotografo(@PathVariable ("id") Long id, Model model) {
 			if(id!=null) {
-				model.addAttribute("fotografo", this.fotografoService.FotografoPerId(id));
+				model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id));
 				return "fotografo.html";
 			} 
 			
 			else {
-				model.addAttribute("fotografi", this.fotografoService.tutti());
+				model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());
 				return "fotografi.html";
 			}
 		}

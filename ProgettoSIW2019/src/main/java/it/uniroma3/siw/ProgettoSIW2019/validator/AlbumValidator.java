@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import it.uniroma3.siw.ProgettoSIW2019.model.Album;
+import it.uniroma3.siw.ProgettoSIW2019.service.AlbumService;
 
 @Component
 public class AlbumValidator implements Validator {

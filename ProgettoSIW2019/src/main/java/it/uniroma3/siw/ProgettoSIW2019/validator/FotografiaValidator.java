@@ -7,6 +7,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.ProgettoSIW2019.model.Fotografia;
+import it.uniroma3.siw.ProgettoSIW2019.service.FotografiaService;
 
 @Component
 public class FotografiaValidator implements Validator {

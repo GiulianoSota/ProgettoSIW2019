@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import it.uniroma3.siw.ProgettoSIW2019.model.Funzionario;
+import it.uniroma3.siw.ProgettoSIW2019.service.FunzionarioService;
 
 @Component
 public class FunzionarioValidator implements Validator {
