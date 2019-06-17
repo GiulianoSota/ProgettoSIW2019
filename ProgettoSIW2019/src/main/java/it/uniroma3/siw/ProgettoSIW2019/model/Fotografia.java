@@ -1,6 +1,5 @@
 package it.uniroma3.siw.ProgettoSIW2019.model;
 
-import java.awt.Image;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,13 +17,13 @@ public class Fotografia {
 	private String titolo;
 
 	@Column(nullable = false)
-	private Image immagine;
+	private String immagine;
 	
 	public Fotografia() {
 
 	}
 
-	public Fotografia(String titolo, Image immagine) {
+	public Fotografia(String titolo, String immagine) {
 		this.titolo = titolo;
 		this.immagine = immagine;
 	}
@@ -37,11 +36,11 @@ public class Fotografia {
 		this.titolo = titolo;
 	}
 
-	public Image getImmagine() {
+	public String getImmagine() {
 		return immagine;
 	}
 
-	public void setImmagine(Image immagine) {
+	public void setImmagine(String immagine) {
 		this.immagine = immagine;
 	}
 

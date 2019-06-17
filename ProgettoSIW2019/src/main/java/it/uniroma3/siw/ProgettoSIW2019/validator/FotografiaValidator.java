@@ -17,6 +17,7 @@ public class FotografiaValidator implements Validator {
 	@Override
 	public void validate(Object o, Errors e) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "titolo", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(e, "immagine", "required");
 		
 		if (this.fotografiaService.alreadyExists((Fotografia) o)) {
 			e.reject("duplicato");
