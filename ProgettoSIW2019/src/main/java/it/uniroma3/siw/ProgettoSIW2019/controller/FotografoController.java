@@ -23,20 +23,26 @@ public class FotografoController {
 
 	@Autowired
 	private FotografoValidator fotografoValidator;
-	
+
+	/* Istanzia l'oggetto Fotografo, i cui dati sanno raccolti in un'apposita form. */
 	@RequestMapping("/addFotografo")
 	public String addFotografo(Model model) {
+
 		model.addAttribute("fotografo", new Fotografo());
 		return "fotografoForm.html";
 	}
 
+	/* Verifica i dati del Fotografo appena creato.
+	 * Se i suoi dati risultano corretti, procederà ad inserire il Fotografo nel DB.
+	 * In caso contrario, si ritornerà alla form precedente per correggerli. */
 	@RequestMapping(value = "/fotografo", method = RequestMethod.POST)
 	public String newFotografo(@Valid @ModelAttribute("fotografo") Fotografo fotografo, Model model, BindingResult bindingResult) {
+
 		this.fotografoValidator.validate(fotografo, bindingResult);
 
 		if (this.fotografoService.alreadyExists(fotografo)) {
 			model.addAttribute("exists", "Fotografo already exists");
-			return "fotografoForm";
+			return "fotografoForm.html";
 		}
 		if(!bindingResult.hasErrors()) {
 			this.fotografoService.inserisci(fotografo);
@@ -47,17 +53,25 @@ public class FotografoController {
 		}
 	}
 
-		@RequestMapping(value = "/fotografo/{id}", method = RequestMethod.GET)
-		public String getFotografo(@PathVariable ("id") Long id, Model model) {
-			if(id!=null) {
-				model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id));
-				return "fotografo.html";
-			} 
-			
-			else {
-				model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());
-				return "fotografi.html";
-			}
-		}
-}
+	/* Ritorna l'elenco di tutti i Fotografi. */
+	@RequestMapping(value = "/fotografi", method = RequestMethod.GET)
+	public String getFotografi(Model model) {
 
+		model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());
+		return "fotografi.html";
+	}
+
+	/* Ritorna la pagina del Fotografo selezionato.
+	 * Se il Fotografo non è presente nel DB, ritorna l'elenco di tutti i Fotografi. */
+	@RequestMapping(value = "/fotografo/{id}", method = RequestMethod.GET)
+	public String getFotografo(@PathVariable ("id") Long id, Model model) {
+
+		if(id!=null) {
+			model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id));
+			return "fotografo.html";
+		}else {
+			model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());
+			return "fotografi.html";
+		}
+	}
+}
