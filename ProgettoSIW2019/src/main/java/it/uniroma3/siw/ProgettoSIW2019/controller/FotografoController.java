@@ -67,7 +67,7 @@ public class FotografoController {
 	public String getFotografo(@PathVariable ("id") Long id, Model model) {
 
 		if(id!=null) {
-			model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id));
+			model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id).get());
 			return "fotografo.html";
 		}else {
 			model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());

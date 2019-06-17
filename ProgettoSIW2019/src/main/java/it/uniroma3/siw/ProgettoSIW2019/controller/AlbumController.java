@@ -1,7 +1,5 @@
 package it.uniroma3.siw.ProgettoSIW2019.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +33,15 @@ public class AlbumController {
 	public String addAlbum(@PathVariable ("id") Long id, Model model) {
 
 		model.addAttribute("album", new Album());
-		model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id));
+		model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id).get());
 		return "albumForm.html";
 	}
 
 	/* Verifica i dati dell'Album appena creato.
 	 * Se i suoi dati risultano corretti, procederà ad inserire l'Album nel DB.
 	 * In caso contrario, si ritornerà alla form precedente per correggerli. */
-	@RequestMapping(value = "/fotografo/{id}/album", method = RequestMethod.POST)
-	public String newAlbum(@PathVariable ("id") Long id, @Valid @ModelAttribute("album") Album album, Model model, BindingResult bindingResult) {
+	@RequestMapping(value = "/fotografo/{idPh}/album", method = RequestMethod.POST)
+	public String newAlbum(@PathVariable ("idPh") Long idPh, @Valid @ModelAttribute("album") Album album, Model model, BindingResult bindingResult) {
 
 		this.albumValidator.validate(album, bindingResult);
 
@@ -54,19 +52,11 @@ public class AlbumController {
 		if(!bindingResult.hasErrors()) {
 			this.albumService.inserisci(album);
 			//TODO aggiornamento della lista di Album del Fotografo
-			//TODO aggiunta al model dell'attributo "albums" con la lista (aggiornata) degli Album del Fotografo
-			return "albums.html";
+			model.addAttribute("album", this.fotografoService.fotografoPerId(idPh).get());
+			return "fotografo.html";
 		}else {
 			return "albumForm.html";
 		}
-	}
-
-	/* Ritorna l'elenco di tutti gli Album di un dato Fotografo. */
-	@RequestMapping(value = "/fotografo/{idPh}/albums", method = RequestMethod.GET)
-	public String getFotografi(Model model) {
-
-		//TODO selezione di tutti gli Album di un Fotografo, in base a idPh
-		return "albums.html";
 	}
 
 	/* Ritorna la pagina dell'Album selezionato.
@@ -75,11 +65,11 @@ public class AlbumController {
 	public String getFotografo(@PathVariable ("idPh") Long idPh, @PathVariable ("idA") Long idA, Model model) {
 
 		if(idA!=null) {
-			model.addAttribute("album", this.albumService.albumPerId(idA));
+			model.addAttribute("album", this.albumService.albumPerId(idA).get());
 			return "album.html";
 		}else {
-			//TODO selezione di tutti gli Album di un Fotografo, in base a idPh
-			return "albums.html";
+			model.addAttribute("fotografo", this.fotografoService.fotografoPerId(idPh).get());
+			return "fotografo.html";
 		}
 	}
 }

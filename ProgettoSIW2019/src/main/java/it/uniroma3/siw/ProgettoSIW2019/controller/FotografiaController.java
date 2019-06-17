@@ -1,7 +1,5 @@
 package it.uniroma3.siw.ProgettoSIW2019.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +33,7 @@ public class FotografiaController {
 	public String addFotografia(@PathVariable ("idA") Long idA, Model model) {
 
 		model.addAttribute("fotografia", new Fotografia());
-		model.addAttribute("album", this.albumService.albumPerId(idA));
+		model.addAttribute("album", this.albumService.albumPerId(idA).get());
 		return "fotografiaForm.html";
 	}
 
@@ -54,32 +52,10 @@ public class FotografiaController {
 		if(!bindingResult.hasErrors()) {
 			this.fotografiaService.inserisci(fotografia);
 			//TODO aggiornamento della lista di Fotografie dell'Album
-			//TODO aggiunta al model della lista (aggiornata) di Fotografie dell'Album
+			model.addAttribute("album", this.albumService.albumPerId(idA).get());
 			return "fotografie.html";
 		}else {
 			return "fotografiaForm.html";
-		}
-	}
-
-	/* Ritorna l'elenco di tutte le Fotografie di un dato Album. */
-	@RequestMapping(value = "/fotografo/{idPh}/album/{idA}/fotografie", method = RequestMethod.GET)
-	public String getFotografi(Model model) {
-
-		//TODO selezione di tutte le Fotografie di un Album, in base a idA
-		return "fotografie.html";
-	}
-
-	/* Ritorna la pagina della Fotografia selezionata.
-	 * Se la Fotografia non è presente nel DB, ritorna l'elenco di tutte le Fotografie dell'Album, sulla base di idA. */
-	@RequestMapping(value = "/fotografo/{idPh}/album/{idA}/fotografia/{idPic}", method = RequestMethod.GET)
-	public String getFotografo(@PathVariable ("idA") Long idA, @PathVariable ("idPic") Long idPic, Model model) {
-
-		if(idPic!=null) {
-			model.addAttribute("fotografia", this.fotografiaService.fotografiaPerId(idPic));
-			return "fotografia.html";
-		}else {
-			//TODO selezione di tutte le Fotografie di un Album, in base a idA
-			return "fotografie.html";
 		}
 	}
 }
