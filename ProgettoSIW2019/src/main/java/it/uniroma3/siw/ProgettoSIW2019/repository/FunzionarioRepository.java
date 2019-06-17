@@ -8,5 +8,6 @@ public interface FunzionarioRepository extends CrudRepository<Funzionario, Long>
 
 	public List<Funzionario> findByUsername(String username);
 	public List<Funzionario> findByEmail(String email);
-	
+	public List<Funzionario> findByEmailAndPassword(String email,String password); //vedi FunzionarioService, metodo doLogin.
+
 }
