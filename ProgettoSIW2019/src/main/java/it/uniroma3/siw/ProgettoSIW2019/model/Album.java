@@ -37,6 +37,10 @@ public class Album {
 		this.fotografie = new HashMap<>();
 	}
 
+	public void inserisciFotografia(Fotografia fotografia) {
+		this.fotografie.put(fotografia.getId(), fotografia);
+	}
+
 	public void inserisciNuovaFotografia(String titolo, String immagine) {
 		Fotografia f = new Fotografia(titolo, immagine);
 		this.fotografie.put(f.getId(), f);

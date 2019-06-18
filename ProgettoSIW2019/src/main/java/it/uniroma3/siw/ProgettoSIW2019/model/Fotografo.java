@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
+
 import javax.persistence.Id;
 
 @Entity
@@ -35,6 +36,10 @@ public class Fotografo {
 		this.cognome = cognome;
 		this.albumFatti = new HashMap<>();
 
+	}
+
+	public void inserisciAlbum(Album a) {
+		this.albumFatti.put(a.getId(), a);
 	}
 
 	public void creaNuovoAlbum(String nome, String descrizione) {

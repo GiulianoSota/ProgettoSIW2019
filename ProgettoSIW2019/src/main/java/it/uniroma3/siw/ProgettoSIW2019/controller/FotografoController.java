@@ -44,7 +44,9 @@ public class FotografoController {
 			model.addAttribute("exists", "Fotografo already exists");
 			return "fotografoForm.html";
 		}
+
 		if(!bindingResult.hasErrors()) {
+
 			this.fotografoService.inserisci(fotografo);
 			model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());
 			return "fotografi.html";
@@ -67,7 +69,9 @@ public class FotografoController {
 	public String getFotografo(@PathVariable ("id") Long id, Model model) {
 
 		if(id!=null) {
-			model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id).get());
+			Fotografo ph = this.fotografoService.fotografoPerId(id).get();
+			model.addAttribute("fotografo", ph);
+			model.addAttribute("albums", ph.getAlbumFatti().values());
 			return "fotografo.html";
 		}else {
 			model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());

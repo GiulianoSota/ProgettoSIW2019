@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import it.uniroma3.siw.ProgettoSIW2019.model.Album;
+import it.uniroma3.siw.ProgettoSIW2019.model.Fotografo;
 import it.uniroma3.siw.ProgettoSIW2019.service.AlbumService;
 import it.uniroma3.siw.ProgettoSIW2019.service.FotografoService;
 import it.uniroma3.siw.ProgettoSIW2019.validator.AlbumValidator;
@@ -29,11 +30,12 @@ public class AlbumController {
 	private AlbumValidator albumValidator;
 
 	/* Istanzia l'oggetto Album, i cui dati sanno raccolti in un'apposita form. */
-	@RequestMapping("/fotografo/{id}/addAlbum")
-	public String addAlbum(@PathVariable ("id") Long id, Model model) {
+	@RequestMapping("/fotografo/{idPh}/addAlbum")
+	public String addAlbum(@PathVariable ("idPh") Long idPh, Model model) {
 
 		model.addAttribute("album", new Album());
-		model.addAttribute("fotografo", this.fotografoService.fotografoPerId(id).get());
+		model.addAttribute("fotografo", this.fotografoService.fotografoPerId(idPh).get());
+
 		return "albumForm.html";
 	}
 
@@ -49,10 +51,22 @@ public class AlbumController {
 			model.addAttribute("exists", "Album already exists");
 			return "albumForm.html";
 		}
+
 		if(!bindingResult.hasErrors()) {
+
+			// Salva l'Album
 			this.albumService.inserisci(album);
-			//TODO aggiornamento della lista di Album del Fotografo
-			model.addAttribute("album", this.fotografoService.fotografoPerId(idPh).get());
+
+			// Aggiunge l'Album nella mappa del Fotografo
+			Fotografo ph = this.fotografoService.fotografoPerId(idPh).get();
+			ph.inserisciAlbum(album);
+
+			// Aggiorna il fotografo (senza modificarne né l'id né altri campi)
+			this.fotografoService.inserisci(ph);
+
+			model.addAttribute("fotografo", ph);
+			model.addAttribute("albums", ph.getAlbumFatti().values());
+
 			return "fotografo.html";
 		}else {
 			return "albumForm.html";

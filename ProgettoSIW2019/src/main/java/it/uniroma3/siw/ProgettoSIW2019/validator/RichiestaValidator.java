@@ -17,7 +17,7 @@ public class RichiestaValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "telefonoCliente", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "descrizione", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "fotografieScelte", "required");
-		
+
 	}
 
 	@Override
