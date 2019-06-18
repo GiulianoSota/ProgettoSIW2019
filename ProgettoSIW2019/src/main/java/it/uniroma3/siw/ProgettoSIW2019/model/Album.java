@@ -1,6 +1,5 @@
 package it.uniroma3.siw.ProgettoSIW2019.model;
 
-import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 
