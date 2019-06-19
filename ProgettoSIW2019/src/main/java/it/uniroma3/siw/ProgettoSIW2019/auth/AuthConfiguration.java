@@ -34,31 +34,32 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                // authorization paragraph: we are going to define here WHO can access WHAT pages
+                // paragfrafo di autorizzazione: definiremo qui CHI può accedere a QUALI pagine
                 .authorizeRequests()
 
-                    // only admin can access the admin page
+                    // solo gli admin possono accedere alle Richieste
                     .antMatchers(HttpMethod.GET, "/richieste").hasAnyAuthority("ADMIN")
-                    .antMatchers(HttpMethod.GET, "/richiesta").hasAnyAuthority("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/richiesta/{id}").hasAnyAuthority("ADMIN")
 
-                    // everyone (authenticated or not) can access all the other pages (that is, welcome)
+                    // chiunque (autenticato o non) può accedere a tutte le altre pagine
+                    // (che avranno alcune funzioni aggiuntive esclusive degli admin)
                     .anyRequest().permitAll()
 
-                // login paragraph: we are going to define here how to login
-                // use formlogin protocol to perform login
+                // paragrafo di login: definiremo qui come effettuare il login
+                // usa il protocollo formlogin per effettuare il login
                 .and().formLogin()
-                    // after login is successful, redirect to /welcome page
+                    // dopo che il login ha avuto successo, ridireziona a '/' (pagina principale)
                     .defaultSuccessUrl("/")
                 //NOTE: we are using the default configuration for login,
                 // meaning that the /login url is automatically mapped to auto-generated page.
                 // for our own page, we would need to use loginPage()
                 // and write a method for accessing it with GET method (but Spring would still handle the POST automatically)
 
-                // logout paragraph: we are going to define here how to logout
+                // paragrafo del logout: definiremo qui come effettuare il logout
                 .and().logout()
-                    // logout is performed when sending a GET to "/logout"
+                    // logout è effettuato quando si manda una richiesta GET a "/logout"
                     .logoutUrl("/logout")
-                    // after logout is successful, redirect to / page (home)
+                    // dopo che il logout ha avuto successo, ridireziona a '/' (pagina principale)
                     .logoutSuccessUrl("/");
     }
 
