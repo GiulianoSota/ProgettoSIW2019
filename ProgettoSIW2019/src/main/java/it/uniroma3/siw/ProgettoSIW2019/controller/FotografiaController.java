@@ -3,6 +3,10 @@ package it.uniroma3.siw.ProgettoSIW2019.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,11 +70,20 @@ public class FotografiaController {
 			a.inserisciFotografia(fotografia);
 			this.albumService.inserisci(a);
 
+			/* Recupera i dati del Funzionario (se ha già effettuato il login) */
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			if (!(auth instanceof AnonymousAuthenticationToken)) {
+	    		UserDetails details = (UserDetails) auth.getPrincipal();
+	    		String role = details.getAuthorities().iterator().next().getAuthority();     // get first authority
+	    		model.addAttribute("username", details.getUsername());
+	    		model.addAttribute("role", role);
+	    	}
+
 			model.addAttribute("fotografo", this.fotografoService.fotografoPerId(idPh).get());
 			model.addAttribute("album", a);
 			model.addAttribute("fotografie", a.getFotografie().values());
 
-			return "fotografie.html";
+			return "album.html";
 		}else {
 			return "fotografiaForm.html";
 		}
