@@ -6,9 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Entity
 public class Funzionario {
 	
+	private static final String ADMIN = "ADMIN";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -21,6 +25,9 @@ public class Funzionario {
 
 	@Column(nullable = false)
 	private String password;
+	
+	@Column(nullable = false)
+	private String role;
 
 	public Funzionario() {
 
@@ -30,13 +37,9 @@ public class Funzionario {
 		
 		this.email = email;
 		this.username = username;
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
+		this.role = ADMIN;
 
-	}
-
-	public boolean checkPassword(String passwordToCheck) {
-		return this.password.equals(passwordToCheck); 
-	
 	}
 
 	public String getEmail() {
@@ -65,5 +68,13 @@ public class Funzionario {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }
