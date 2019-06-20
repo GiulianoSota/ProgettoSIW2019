@@ -72,6 +72,14 @@ public class FotografoController {
 	@RequestMapping(value = "/fotografi", method = RequestMethod.GET)
 	public String getFotografi(Model model) {
 
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(auth instanceof AnonymousAuthenticationToken)) {
+    		UserDetails details = (UserDetails) auth.getPrincipal();
+    		String role = details.getAuthorities().iterator().next().getAuthority();     // get first authority
+    		model.addAttribute("username", details.getUsername());
+    		model.addAttribute("role", role);
+    	}
+
 		model.addAttribute("fotografi", this.fotografoService.tutti_i_fotografi());
 		return "fotografi.html";
 	}
