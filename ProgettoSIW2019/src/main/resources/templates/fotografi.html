@@ -1,7 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns:th=http://www.thymeleaf.org xmlns="http://www.w3.org/1999/html">
 	<head>
-		<title>SILPH</title>
+		<title>SILPH - ALBUM</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="css/main.css" />
@@ -17,42 +17,31 @@
 						<li><a th:href="@{addRichiesta}"><span class="icon fa-file-text-o"></span></a></li>
 					</ul>
 				</nav>
-
+            
 			<!-- Main -->
 				<section id="main">
 
-					<!-- Banner -->
-						<section id="banner">
-							<div class="inner">
-							    <ul class="actions">
-									<li><a href="login" class="button alt scrolly big" style="position:absolute;top:-250px;left:890px">Log In</a></li>
-								</ul>
-							</div>
-							<div class="inner">
-								<h1>Benvenuto in Silph</h1>			
-							</div>
-						</section>
+					<!-- Header -->
+						<header id="header">
+							<div>SILPH - <span>fotografi</span></div>
+						</header>
 
 					<!-- Gallery -->
 						<section id="galleries">
 
 							<!-- Photo Galleries -->
 								<div class="gallery">
-									<header class="special">
-										<font face="castellar"><h2><div class="social column">
-									        <h3><u>Chi Siamo</u></h3>
-									        <p>Siamo un'azienda che si occupa della vendita di fotografie ai fini commerciali.<br>
-									        Nella sezione 'gallery',o premendo il tasto qui sotto,sarà possibile vedere la lista dei nostri fotografi,<br>
-									        ognuno con i propri album.</p>
-									        <p>Nella sezione 'richiesta foto' è possibile acquistare foto specificando il loro ID ed inviando la richiesta.<br>
-									        I nostri funzionari vi chiameranno il prima possibile per trattare sul prezzo d'acquisto.</p>	
-								            </div></h2></font>
-									</header>
-									
-									<footer>
-										<a th:href="@{fotografi}" class="button big">Sfoglia i Nostri Fotografi</a>
-									</footer>
+
+									<!-- Filters -->
+										<header>
+											<h1><u>Guarda gli Album dei Nostri Fotografi</u></h1>
+										</header>
+
+										<div class="content">
+											
+										</div>
 								</div>
+						</section>
 				</section>
 		</div>
 
