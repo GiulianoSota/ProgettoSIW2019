@@ -44,9 +44,4 @@ public class FunzionarioService {
 		//Un funzionario, in fase di registrazione, non deve essere registrato se nel db è già presente email e username, solo email o solo username. 
 	}
 
-	//In fase di login. Le credenziali inserite per il login devono essere cercate nel db e, se sono corrette, verrà effettuato il login.
-	public boolean doLogin(String email, String password) {
-		return funzionarioRepository.findByEmailAndPassword(email,password) != null ;
-	}
-
 }

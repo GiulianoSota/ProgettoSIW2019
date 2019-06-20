@@ -1,0 +1,28 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th=http://www.thymeleaf.org xmlns="http://www.w3.org/1999/html">
+<head>
+<head>
+		<title>SILPH - fotografo form</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <section id="main">
+      <div class="gallery">
+        <form action="#" method="post">
+             <h1>Nuovo Fotografo</h1>
+
+             <label for="nome"><b>Nome</b></label>
+             <input type="text" placeholder="Nome Fotografo" style = "color: #000000;" name="nome" required><br>
+
+             <label for="cognome"><b>Cognome</b></label>
+             <input type="text" placeholder="Cognome Fotografo" style = "color: #000000;" name="cognome" required><br>
+ 
+             <a th:href="@{addFotografo}" class="button">Salva</a>
+             <a th:href="@{index}" class="button">Indietro</a>
+        </form>
+       </div>
+     </section>
+</body>
+</html>
