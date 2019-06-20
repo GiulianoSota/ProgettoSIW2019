@@ -48,38 +48,33 @@ public class AlbumController {
 	 * In caso contrario, si ritornerà alla form precedente per correggerli. */
 	@RequestMapping(value = "/fotografo/{idPh}/album", method = RequestMethod.POST)
 	public String newAlbum(@PathVariable ("idPh") Long idPh, @Valid @ModelAttribute("album") Album album, Model model, BindingResult bindingResult) {
-
+		
 		this.albumValidator.validate(album, bindingResult);
-
+		
 		if (this.albumService.alreadyExists(album)) {
 			model.addAttribute("exists", "Album already exists");
 			return "albumForm.html";
 		}
-
+		
 		if(!bindingResult.hasErrors()) {
 
-			// Salva l'Album
 			this.albumService.inserisci(album);
 
-			// Aggiunge l'Album nella mappa del Fotografo
-			Fotografo ph = this.fotografoService.fotografoPerId(idPh).get();
-			ph.inserisciAlbum(album);
-
-			// Aggiorna il fotografo (senza modificarne né l'id né altri campi)
-			this.fotografoService.inserisci(ph);
-
-			/* Recupera i dati del Funzionario (se ha già effettuato il login) */
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			if (!(auth instanceof AnonymousAuthenticationToken)) {
+	    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    	if (!(auth instanceof AnonymousAuthenticationToken)) {
 	    		UserDetails details = (UserDetails) auth.getPrincipal();
 	    		String role = details.getAuthorities().iterator().next().getAuthority();     // get first authority
 	    		model.addAttribute("username", details.getUsername());
 	    		model.addAttribute("role", role);
 	    	}
 
+			Fotografo ph = this.fotografoService.fotografoPerId(idPh).get();
+			ph.inserisciAlbum(album);
+			this.fotografoService.inserisci(ph);
+
 			model.addAttribute("fotografo", ph);
 			model.addAttribute("albums", ph.getAlbumFatti().values());
-
+			
 			return "fotografo.html";
 		}else {
 			return "albumForm.html";
@@ -91,20 +86,20 @@ public class AlbumController {
 	@RequestMapping(value = "/fotografo/{idPh}/album/{idA}", method = RequestMethod.GET)
 	public String getFotografo(@PathVariable ("idPh") Long idPh, @PathVariable ("idA") Long idA, Model model) {
 
-		/* Recupera i dati del Funzionario (se ha già effettuato il login) */
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(auth instanceof AnonymousAuthenticationToken)) {
     		UserDetails details = (UserDetails) auth.getPrincipal();
     		String role = details.getAuthorities().iterator().next().getAuthority();     // get first authority
     		model.addAttribute("username", details.getUsername());
     		model.addAttribute("role", role);
     	}
 
+		model.addAttribute("fotografo", this.fotografoService.fotografoPerId(idPh).get());
+
 		if(idA!=null) {
 			model.addAttribute("album", this.albumService.albumPerId(idA).get());
 			return "album.html";
 		}else {
-			model.addAttribute("fotografo", this.fotografoService.fotografoPerId(idPh).get());
 			return "fotografo.html";
 		}
 	}

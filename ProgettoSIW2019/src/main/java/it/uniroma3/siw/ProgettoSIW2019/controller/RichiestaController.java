@@ -40,22 +40,26 @@ public class RichiestaController {
 	/* Verifica i dati della Richiesta appena creata.
 	 * Se i suoi dati risultano corretti, procederà ad inserire la Richiesta nel DB.
 	 * In caso contrario, si ritornerà alla form precedente per correggerli. */
-	@RequestMapping(value = "/richiesta", method = RequestMethod.POST)
+	@RequestMapping(value = "/nuovaRichiesta", method = RequestMethod.POST)
 	public String newRichiesta(@Valid @ModelAttribute("richiesta") Richiesta richiesta, Model model, BindingResult bindingResult) {
 
 		this.richiestaValidator.validate(richiesta, bindingResult);
 
 		if (this.richiestaService.alreadyExists(richiesta)) {
-			model.addAttribute("exists", "Fotografo already exists");
+			System.out.println("ALREADY EXISTS!");
+			model.addAttribute("exists", "Richiesta already exists");
 			return "richiestaForm.html";
 		}
 
 		if(!bindingResult.hasErrors()) {
 
+			System.out.println("NO ERRORS!");
+			// TODO trovare il modo di raccogliere anche gli id delle foto nella form
+
 			this.richiestaService.inserisci(richiesta);
-			model.addAttribute("richieste", this.richiestaService.tutte_le_richieste());
-			return "richieste.html";
+			return "index.html";
 		}else {
+			System.out.println("ERRORS!");
 			return "richiestaForm.html";
 		}
 	}
@@ -64,9 +68,8 @@ public class RichiestaController {
 	@RequestMapping(value = "/richieste", method = RequestMethod.GET)
 	public String getRichieste(Model model) {
 
-		/* Recupera i dati del Funzionario (se ha già effettuato il login) */
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(auth instanceof AnonymousAuthenticationToken)) {
     		UserDetails details = (UserDetails) auth.getPrincipal();
     		String role = details.getAuthorities().iterator().next().getAuthority();     // get first authority
     		model.addAttribute("username", details.getUsername());
@@ -82,9 +85,8 @@ public class RichiestaController {
 	@RequestMapping(value = "/richiesta/{id}", method = RequestMethod.GET)
 	public String getRichiesta(@PathVariable ("id") Long id, Model model) {
 
-		/* Recupera i dati del Funzionario (se ha già effettuato il login) */
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (!(auth instanceof AnonymousAuthenticationToken)) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	if (!(auth instanceof AnonymousAuthenticationToken)) {
     		UserDetails details = (UserDetails) auth.getPrincipal();
     		String role = details.getAuthorities().iterator().next().getAuthority();     // get first authority
     		model.addAttribute("username", details.getUsername());
@@ -92,10 +94,10 @@ public class RichiestaController {
     	}
 
 		if(id!=null) {
-			model.addAttribute("richiesta", this.richiestaService.richiestaPerId(id));
+			model.addAttribute("richiesta", this.richiestaService.richiestaPerId(id).get());
 			return "richiesta.html";
 		}else {
-			model.addAttribute("richiesta", this.richiestaService.tutte_le_richieste());
+			model.addAttribute("richieste", this.richiestaService.tutte_le_richieste());
 			return "richieste.html";
 		}
 	}

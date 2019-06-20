@@ -63,21 +63,20 @@ public class FotografiaController {
 		}
 
 		if(!bindingResult.hasErrors()) {
-
+			
 			this.fotografiaService.inserisci(fotografia);
 
-			Album a = this.albumService.albumPerId(idA).get();
-			a.inserisciFotografia(fotografia);
-			this.albumService.inserisci(a);
-
-			/* Recupera i dati del Funzionario (se ha già effettuato il login) */
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			if (!(auth instanceof AnonymousAuthenticationToken)) {
+	    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    	if (!(auth instanceof AnonymousAuthenticationToken)) {
 	    		UserDetails details = (UserDetails) auth.getPrincipal();
 	    		String role = details.getAuthorities().iterator().next().getAuthority();     // get first authority
 	    		model.addAttribute("username", details.getUsername());
 	    		model.addAttribute("role", role);
 	    	}
+
+			Album a = this.albumService.albumPerId(idA).get();
+			a.inserisciFotografia(fotografia);
+			this.albumService.inserisci(a);
 
 			model.addAttribute("fotografo", this.fotografoService.fotografoPerId(idPh).get());
 			model.addAttribute("album", a);
