@@ -7,8 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.uniroma3.siw.ProgettoSIW2019.model.Album;
-import it.uniroma3.siw.ProgettoSIW2019.model.Fotografo;
 import it.uniroma3.siw.ProgettoSIW2019.model.Richiesta;
 import it.uniroma3.siw.ProgettoSIW2019.repository.RichiestaRepository;
 
