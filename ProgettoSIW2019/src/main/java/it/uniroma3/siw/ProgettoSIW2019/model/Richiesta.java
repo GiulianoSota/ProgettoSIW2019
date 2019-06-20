@@ -22,7 +22,7 @@ public class Richiesta {
 	@Column(nullable = false)
 	private String cognomeCliente;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String emailCliente;
 
 	@Column(nullable = false)
