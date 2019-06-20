@@ -51,8 +51,7 @@
 									</header>
 									
 									<footer>
-										<a th:href="@{fotografi}" class="button big">Sfoglia i Nostri Fotografi</a><br><br>
-										<div th:if="${role} == 'ADMIN' "><a th:href="@{/addFotografo}" class="button big">Aggiungi un Fotografo</a></div><br>
+										<a th:href="@{fotografi}" class="button big">Sfoglia i Nostri Fotografi</a><br><br>		
 										<div th:if="${role} == 'ADMIN' "><a th:href="@{/fotografo/{idPh}/album/{idA}/addFotografia}" class="button big">Aggiungi una Foto</a></div><br>
 										<div th:if="${role} == 'ADMIN' "><a th:href="@{/fotografo/{idPh}/addAlbum}" class="button big">Aggiungi un Album</a></div><br>
 										<div th:if="${role} == 'ADMIN' "><a th:href="@{richieste}" class="button big">Visualizza Richieste</a></div>
