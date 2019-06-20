@@ -11,7 +11,17 @@
         	<header>
              	<h1><u>Lista Richieste:<u></h1><br>
             </header>
-        	<a href="#" class="button">Indietro</a>
+                  <div class="content">
+						<ul>
+						   <li th:each="richiesta : ${richieste}">
+							   <p>
+								   <a th:href="@{'/richiesta' + '/' + ${richiesta.id}}"></a>
+								   <span th:text="${richiesta.nomeCliente}+ ' ' + ${richiesta.cognomeCliente}"></span>
+							   </p>
+						  </li>
+						</ul>
+				</div>
+        	<a th:href="@{index}" class="button">Indietro</a>
         </section>
 	</body>
 </html>
