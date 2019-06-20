@@ -25,7 +25,8 @@
 						<section id="banner">
 							<div class="inner">
 							    <ul class="actions">
-									<li><a href="login" class="button alt scrolly big" style="position:absolute;top:-250px;left:890px">Log In</a></li>
+									<li th:if="${role} != 'ADMIN' "><a th:href="login" class="button alt scrolly big" style="position:absolute;top:-250px;left:890px">Log In</a></li>
+									<li th:if="${role} == 'ADMIN' "><a th:href="logout" class="button alt scrolly big" style="position:absolute;top:-250px;left:890px">Log Out</a></li>
 								</ul>
 							</div>
 							<div class="inner">
@@ -50,7 +51,11 @@
 									</header>
 									
 									<footer>
-										<a th:href="@{fotografi}" class="button big">Sfoglia i Nostri Fotografi</a>
+										<a th:href="@{fotografi}" class="button big">Sfoglia i Nostri Fotografi</a><br><br>
+										<div th:if="${role} == 'ADMIN' "><a th:href="@{/addFotografo}" class="button big">Aggiungi un Fotografo</a></div><br>
+										<div th:if="${role} == 'ADMIN' "><a th:href="@{/fotografo/{idPh}/album/{idA}/addFotografia}" class="button big">Aggiungi una Foto</a></div><br>
+										<div th:if="${role} == 'ADMIN' "><a th:href="@{/fotografo/{idPh}/addAlbum}" class="button big">Aggiungi un Album</a></div><br>
+										<div th:if="${role} == 'ADMIN' "><a th:href="@{richieste}" class="button big">Visualizza Richieste</a></div>
 									</footer>
 								</div>
 				</section>

@@ -38,7 +38,14 @@
 										</header>
 
 										<div class="content">
-											
+											<ul>
+											    <li th:each="fotografo : ${fotografi}">
+											        <p>
+											             <a th:href="@{'/fotografo' + '/' + ${fotografo.id}}"></a>
+											               <span th:text="${fotografo.nome}+ ' ' + ${fotografo.cognome}"></span>
+											        </p>
+											    </li>
+											</ul>
 										</div>
 								</div>
 						</section>
